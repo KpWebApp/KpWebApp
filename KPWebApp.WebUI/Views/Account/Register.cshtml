@@ -1,0 +1,71 @@
+﻿@using System.Web.UI.WebControls
+@model KPWebApp.WebUI.Models.RegistratingUser
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LoginFormLayout.cshtml";
+}
+@ViewBag.Message
+@using ((Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal registerForm" })))
+{
+    <div class="form-group">
+        <label for="FirstName" class="col-md-3 control-label">Ім'я</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="text" class="form-control col-md-9" name="FirstName" value="" placeholder="Ім'я">
+        </div>
+    </div>
+  
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="MiddleName" class="col-md-3 control-label">По батькові</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="text" class="form-control col-md-9" name="MiddleName" value="" placeholder="По батькові">
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="LastName" class="col-md-3 control-label">Прізвище</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="text" class="form-control col-md-9" name="LastName" value="" placeholder="Прізвище">
+        </div>
+    </div>
+   
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="Username" class="col-md-3 control-label">Логін</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="text" class="form-control col-md-9" name="Username" value="" placeholder="Логін">
+        </div>
+    </div>
+
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="Email" class="col-md-3 control-label">Емейл</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="text" class="form-control col-md-9" name="Email" value="" placeholder="Емейл">
+        </div>
+    </div>
+  
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="Password" class="col-md-3 control-label">Пароль</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="password" class="form-control col-md-9" name="Password" value="" placeholder="Пароль">
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 25px" class="form-group">
+        <label for="secondPassword" class="col-md-3 control-label">Повторіть пароль</label>
+        <div class="col-md-9">
+            <input id="register-firstname" type="password" class="form-control col-md-9" name="secondPassword" value="" placeholder="Пароль">
+        </div>
+    </div>
+ 
+       
+    <div class="input-group">
+        <!-- Button -->
+        <div style="margin-top: 10px" class="input-group">
+            <div>
+                <input id="btn-signup" type="submit" class="btn btn-info" value="Зареєструватися" />
+                @Html.ActionLink("Увійти", "Login", "Account", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Головна", "Index", "Home", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}

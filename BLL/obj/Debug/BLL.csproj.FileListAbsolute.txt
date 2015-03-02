@@ -1,0 +1,9 @@
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\BLL.dll
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\BLL.pdb
+F:\Education\3rd year\KPWebApp\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+F:\Education\3rd year\KPWebApp\BLL\obj\Debug\BLL.dll
+F:\Education\3rd year\KPWebApp\BLL\obj\Debug\BLL.pdb
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\KPWebApp.Domain.dll
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\EntityFramework.dll
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\3rd year\KPWebApp\BLL\bin\Debug\EntityFramework.xml

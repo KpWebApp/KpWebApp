@@ -1,0 +1,15 @@
+﻿@using KPWebApp.BLL
+@model KPWebApp.WebUI.Models.PostsListViewModel
+
+@{
+    ViewBag.Title = TextParser.TranslateCategoryToUkrainian(Model.CurrentCategory);
+    Layout = "~/Views/Shared/_PostsLayout.cshtml";
+}
+
+@foreach (var post in Model.Posts)
+{
+    Html.RenderPartial("PostView", post);
+}
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+</div>

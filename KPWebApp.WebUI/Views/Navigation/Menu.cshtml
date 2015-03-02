@@ -1,0 +1,31 @@
+﻿@using System.Activities.Statements
+@using KPWebApp.BLL
+@using KPWebApp.Domain.Entities
+@model List<string>
+
+
+<li>
+    @Html.ActionLink("Головна", "Index", "Home")
+</li>
+@foreach (var link in Model)
+{
+    <li>
+        @Html.RouteLink(link, new { controller = "Post", action = "List", category = TextParser.TranslateCategoryToEnglish(link), page = 1 }, new { @class = link == ViewBag.SelectedCategory ? "selected" : null })
+    </li>
+}
+<li>
+    @Html.ActionLink("Пошук", "Search", "Search")
+</li>
+@if (HttpContext.Current.User.IsInRole(Role.User.ToString()))
+{
+    <li>
+        @Html.ActionLink("Профіль", "Profile", "Personal", new {username = HttpContext.Current.User.Identity.Name}, null)
+    </li>
+}
+@if (HttpContext.Current.User.IsInRole(Role.Administrator.ToString()))
+{
+    <li>
+        @Html.ActionLink("Управління", "Index", "Admin")
+    </li>
+}
+

@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C376D35-9643-4C49-B0D6-0B446B8FD0B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KPWebApp.Domain</RootNamespace>
+    <AssemblyName>KPWebApp.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IRegistrationProcessor.cs" />
+    <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Concrete\EmailRegistrationProcessor.cs" />
+    <Compile Include="Concrete\EmailSettings.cs" />
+    <Compile Include="Concrete\KpWebAppDb.cs" />
+    <Compile Include="Concrete\PostRepository.cs" />
+    <Compile Include="Entities\ContactInfo.cs" />
+    <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\GraduateInfo.cs" />
+    <Compile Include="Entities\Photo.cs" />
+    <Compile Include="Entities\Teacher.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\StartPageInfo.cs" />
+    <Compile Include="Entities\UserInfo.cs" />
+    <Compile Include="Migrations\201502051719456_nOne.cs" />
+    <Compile Include="Migrations\201502051719456_nOne.Designer.cs">
+      <DependentUpon>201502051719456_nOne.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502081753093_IsTeacherPropAdded.cs" />
+    <Compile Include="Migrations\201502081753093_IsTeacherPropAdded.Designer.cs">
+      <DependentUpon>201502081753093_IsTeacherPropAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502081808403_Courses.cs" />
+    <Compile Include="Migrations\201502081808403_Courses.Designer.cs">
+      <DependentUpon>201502081808403_Courses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502081831569_CoursesAdded.cs" />
+    <Compile Include="Migrations\201502081831569_CoursesAdded.Designer.cs">
+      <DependentUpon>201502081831569_CoursesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502081847552_CoursesAdded_2.cs" />
+    <Compile Include="Migrations\201502081847552_CoursesAdded_2.Designer.cs">
+      <DependentUpon>201502081847552_CoursesAdded_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502131848418_BoolDefPhoto.cs" />
+    <Compile Include="Migrations\201502131848418_BoolDefPhoto.Designer.cs">
+      <DependentUpon>201502131848418_BoolDefPhoto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502131901193_BoolByAdmin.cs" />
+    <Compile Include="Migrations\201502131901193_BoolByAdmin.Designer.cs">
+      <DependentUpon>201502131901193_BoolByAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201502051719456_nOne.resx">
+      <DependentUpon>201502051719456_nOne.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502081753093_IsTeacherPropAdded.resx">
+      <DependentUpon>201502081753093_IsTeacherPropAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502081808403_Courses.resx">
+      <DependentUpon>201502081808403_Courses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502081831569_CoursesAdded.resx">
+      <DependentUpon>201502081831569_CoursesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502081847552_CoursesAdded_2.resx">
+      <DependentUpon>201502081847552_CoursesAdded_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502131848418_BoolDefPhoto.resx">
+      <DependentUpon>201502131848418_BoolDefPhoto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502131901193_BoolByAdmin.resx">
+      <DependentUpon>201502131901193_BoolByAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

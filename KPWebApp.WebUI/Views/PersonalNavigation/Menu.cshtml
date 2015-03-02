@@ -1,0 +1,60 @@
+﻿@using KPWebApp.Domain.Entities
+
+@if (ViewBag.Username == HttpContext.Current.User.Identity.Name)
+{
+    <li>
+        @Html.ActionLink("Головна", "Index", "Home")
+    </li>
+
+    <li>
+        @Html.ActionLink("Профіль", "Profile", "Personal", new { username = HttpContext.Current.User.Identity.Name }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Про себе", "Biography", "Personal", new { username = HttpContext.Current.User.Identity.Name }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Контакти", "Contacts", "Personal", new { username = HttpContext.Current.User.Identity.Name }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Пошук", "Search", "Search")
+    </li>
+    
+     <li>
+        @Html.ActionLink("Редагувати", "Index", "PersonalEdit")
+    </li>
+}
+else
+{
+    <li>
+        @Html.ActionLink("Головна", "Index", "Home")
+    </li>
+
+    <li>
+        @Html.ActionLink("Профіль", "Profile", "Personal", new { username = @ViewBag.User }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Про себе", "Biography", "Personal", new { username = @ViewBag.User }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Контакти", "Contacts", "Personal", new { username = @ViewBag.User }, null)
+    </li>
+    <li>
+        @Html.ActionLink("Пошук", "Search", "Search")
+    </li>
+    if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        if (@ViewBag.Username != HttpContext.Current.User.Identity.Name)
+        {
+                    <li>
+            @Html.ActionLink("Моя сторінка", "Profile", "Personal", new { username = HttpContext.Current.User.Identity.Name }, null)
+        </li>
+        }
+
+    }
+}
+
+

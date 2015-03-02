@@ -1,0 +1,68 @@
+﻿@model KPWebApp.WebUI.Models.AdminsListOfItems<KPWebApp.Domain.Entities.User>
+
+@{
+    ViewBag.Title = "Admin: Випускники";
+    Layout = "~/Views/Shared/_PostsLayout.cshtml";
+}
+
+<div class="row">
+    <div class="box">
+        <div class="col-lg-12">
+             <hr>
+            <h2 class="intro-text text-center">Всі випускники
+            </h2>
+            <hr>
+            <p>@Html.ActionLink("Додати нового випускника", "AddGraduate")</p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Повне ім'я</th>
+                        <th>Рік вступу</th>
+                        <th>Рік випуску</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.UserId</td>
+                            @if (!item.IsRegistred)
+                            {
+                                <td>@Html.ActionLink(item.FullName, "EditGraduate", new { item.UserId })</td>
+                            }
+                            else
+                            {
+                                <td>@((@item.FullName??@item.Username).ToString())</td>
+                            }
+                            <td>@item.UserInfo.GraduateInfo.EntranceYear</td>
+                            <td>@item.UserInfo.GraduateInfo.GraduationYear</td>
+                            @if(!item.IsRegistred)
+                            {       
+                                <td>
+                                    @using (Html.BeginForm("DeleteGraduate", "Admin"))
+                                    {
+                                        @Html.Hidden("UserId", item.UserId)
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="glyphicon glyphicon-remove"></i>Вилучити
+                                        </button>
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                    
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p>@Html.ActionLink("Додати нового випускника", "AddGraduate")</p>
+        </div>
+    </div>
+</div>
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("ListOfAllUsers", new { page = x}))
+</div>

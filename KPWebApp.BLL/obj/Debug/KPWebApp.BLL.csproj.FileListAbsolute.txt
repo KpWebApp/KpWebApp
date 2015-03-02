@@ -1,0 +1,12 @@
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.BLL.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.BLL.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\obj\Debug\KPWebApp.BLL.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\obj\Debug\KPWebApp.BLL.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\obj\Debug\KPWebApp.BLL.csprojResolveAssemblyReference.cache
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.BLL.dll.config
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\EntityFramework.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\EntityFramework.SqlServer.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.Domain.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\EntityFramework.xml
+F:\Education\3rd year\KPWebApp\KPWebApp.BLL\bin\Debug\EntityFramework.SqlServer.xml

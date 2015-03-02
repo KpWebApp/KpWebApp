@@ -1,0 +1,17 @@
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.UnitTests.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.UnitTests.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.Domain.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.WebUI.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\Moq.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\Ninject.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\EntityFramework.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.WebUI.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\Moq.xml
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\Ninject.xml
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\EntityFramework.xml
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.csprojResolveAssemblyReference.cache
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.pdb
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.dll
+F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.pdb

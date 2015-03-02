@@ -1,0 +1,40 @@
+﻿DIV#bs-example-navbar-collapse-1 A.selected {
+    color: black;
+    font-weight: bolder;
+}
+
+
+DIV.pager {
+    text-align: right;
+    border-top: 3px solid silver;
+    padding: .5em 0 0 0;
+    margin-top: 1em;
+}
+
+    DIV.pager A {
+        font-size: 1.1em;
+        color: #353535;
+        text-decoration: none;
+        padding: 0 .4em 0 .4em;
+    }
+
+        DIV.pager A:hover {
+            background-color: #99CCFF;
+        }
+
+        DIV.pager A.selected {
+            background-color: #353535;
+            color: White;
+        }
+
+textarea {
+    resize: vertical;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: silver;
+}
+
+td span{
+    float: right;
+}

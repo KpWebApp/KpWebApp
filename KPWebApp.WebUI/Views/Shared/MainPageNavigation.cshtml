@@ -1,0 +1,86 @@
+﻿<div class="row">
+    <div class="col-md-1 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+            </span>
+
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+            </span>
+            <h4>
+                <strong>Новини</strong>
+            </h4>
+            <p>Будьте в курсі всього нового на кафедрі.</p>
+            @Html.ActionLink("Новини", "List", "Post", new { category = "News", page = 1 }, new { @class = "btn btn-light" })
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-compass fa-stack-1x text-primary"></i>
+            </span>
+            <h4>
+                <strong>Історія</strong>
+            </h4>
+            <p>Дізнайся про те, як і що було колись на кафедрі.</p>
+            @Html.ActionLink("Історія", "List", "Post", new { category = "History", page = 1 }, new { @class = "btn btn-light" })
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-flask fa-stack-1x text-primary"></i>
+            </span>
+            <h4>
+                <strong>Цікаве</strong>
+            </h4>
+            <p>Корисні та інноваційні статті в галузі ІТ.</p>
+            @Html.ActionLink("Цікаві публікації", "List", "Post", new { category = "InterestingFacts", page = 1 }, new { @class = "btn btn-light" })
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+            </span>
+            <h4>
+                <strong>Пошук</strong>
+            </h4>
+            <p>Зайдіть своїх знайомих на нашій кафедрі.</p>
+            @Html.ActionLink("Пошук", "Index", "Admin", null, new { @class = "btn btn-light" })
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+            </span>
+            <h4>
+                <strong>Увійти</strong>
+            </h4>
+            <p>Зайдіть, щоб знайти своїх одногрупників чи викладачів.</p>
+            <a href="~/Home/SignIn" class="btn btn-light">Увійти</a>
+        </div>
+    </div>
+    <div class="col-md-1 col-sm-6">
+        <div class="service-item">
+            <span class="fa-stack fa-4x">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+            </span>
+
+        </div>
+    </div>
+
+</div>

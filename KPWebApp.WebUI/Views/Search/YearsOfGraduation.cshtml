@@ -1,0 +1,15 @@
+﻿@model IEnumerable<string>
+<select class="form-control" onchange="newYearSelected()" id="year">
+    <option>Виберіть ключ
+    </option>
+    <option>Викладачі
+    </option>
+    <optgroup label="Рік випуску">
+        @foreach (string yearVal in Model)
+        {
+            <option>
+                @yearVal
+            </option>
+        }
+    </optgroup>
+</select>
