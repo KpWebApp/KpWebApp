@@ -16,3 +16,21 @@ F:\Education\3rd year\KPWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrati
 F:\Education\3rd year\KPWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.CoursesAdded_2.resources
 F:\Education\3rd year\KPWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.BoolDefPhoto.resources
 F:\Education\3rd year\KPWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.BoolByAdmin.resources
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\KPWebApp.Domain.dll.config
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\KPWebApp.Domain.dll
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\EntityFramework.dll
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\EntityFramework.SqlServer.dll
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\EntityFramework.xml
+F:\Education\KpWebApp\KPWebApp.Domain\bin\Debug\EntityFramework.SqlServer.xml
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.csprojResolveAssemblyReference.cache
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.nOne.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.IsTeacherPropAdded.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.Courses.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.CoursesAdded.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.CoursesAdded_2.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.BoolDefPhoto.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.Migrations.BoolByAdmin.resources
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.csproj.GenerateResource.Cache
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.dll
+F:\Education\KpWebApp\KPWebApp.Domain\obj\Debug\KPWebApp.Domain.pdb

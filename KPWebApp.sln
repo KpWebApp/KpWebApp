@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPWebApp.UnitTests", "KPWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPWebApp.BLL", "KPWebApp.BLL\KPWebApp.BLL.csproj", "{FC61696A-CCE0-4E52-BB3C-191FB18CE528}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KPWebApp.DAL", "KPWebApp.DAL\KPWebApp.DAL.csproj", "{D5617D73-A59D-4388-B55B-7D6D93131ED2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{FC61696A-CCE0-4E52-BB3C-191FB18CE528}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC61696A-CCE0-4E52-BB3C-191FB18CE528}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC61696A-CCE0-4E52-BB3C-191FB18CE528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5617D73-A59D-4388-B55B-7D6D93131ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5617D73-A59D-4388-B55B-7D6D93131ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5617D73-A59D-4388-B55B-7D6D93131ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5617D73-A59D-4388-B55B-7D6D93131ED2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
