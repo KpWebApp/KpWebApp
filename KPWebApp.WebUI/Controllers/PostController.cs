@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Concrete;
 using KPWebApp.Domain.Entities;
@@ -12,11 +13,11 @@ namespace KPWebApp.WebUI.Controllers
 {
     public class PostController : Controller
     {
-        private IRepository repository;
+        private IUnitOfWork unitOfWork;
         public int PageCapacity { get; set; }
-        public PostController(IRepository postRepository)
+        public PostController(IUnitOfWork unitOfWork)
         {
-            this.repository = postRepository;
+            this.unitOfWork = unitOfWork;
             this.PageCapacity = 3;
         }
 
@@ -24,16 +25,12 @@ namespace KPWebApp.WebUI.Controllers
         {
             PostsListViewModel model = new PostsListViewModel()
             {
-                Posts = repository.PostsCollection
-                    .Where(p => (category == null || p.Category.ToString() == category) && (p.User.Role == Role.Administrator))
-                    .OrderByDescending(p => p.Time)
-                    .Skip((page - 1) * PageCapacity)
-                    .Take(PageCapacity),
+                Posts = unitOfWork.PostRepository.Get(p => (category == null || p.Category.ToString() == category) && (p.User.Role == Role.Administrator), q=>q.OrderByDescending(p=>p.Time)).Skip((page - 1) * PageCapacity).Take(PageCapacity),
                 PagingInfo = new PagingInfo()
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageCapacity,
-                    TotalItems = category == null ? repository.PostsCollection.Count() : repository.PostsCollection.Count(e => e.Category.ToString() == category && e.User.Role==Role.Administrator)
+                    TotalItems = category == null ? unitOfWork.PostRepository.Get().Count() : unitOfWork.PostRepository.Get().Count(e => e.Category.ToString() == category && e.User.Role==Role.Administrator)
                 },
                 CurrentCategory = category
 
@@ -43,7 +40,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetImage(int postId)
         {
-            Post post = repository.PostsCollection.FirstOrDefault(p => p.PostId == postId);
+            Post post = unitOfWork.PostRepository.Get(p => p.PostId == postId).FirstOrDefault();
             if (post != null)
             {
                 return File(post.ImageData, post.ImageMimeType);
@@ -56,7 +53,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public ViewResult TeachersInfoPage(int userId)
         {
-            User teacher = repository.GetUserById(userId);
+            User teacher = unitOfWork.UserRepository.GetById(userId);
             TeacherInfoPage modelTeacher = new TeacherInfoPage
             {
                 UserId = teacher.UserId,
@@ -74,7 +71,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetTeachersProfileImage(int userId)
         {
-            User user = repository.UserCollection.FirstOrDefault(u => u.UserId == userId);
+            User user = unitOfWork.UserRepository.Get(u => u.UserId == userId).FirstOrDefault();
             if (user != null)
             {
                 Photo photo = user.UserInfo.Photos.FirstOrDefault();

@@ -1,0 +1,12 @@
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\KPWebApp.DAL.dll.config
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\KPWebApp.DAL.dll
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\KPWebApp.DAL.pdb
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\EntityFramework.dll
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\EntityFramework.SqlServer.dll
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\KPWebApp.Domain.dll
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\EntityFramework.xml
+F:\Education\KpWebApp\KPWebApp.DAL\bin\Debug\EntityFramework.SqlServer.xml
+F:\Education\KpWebApp\KPWebApp.DAL\obj\Debug\KPWebApp.DAL.csprojResolveAssemblyReference.cache
+F:\Education\KpWebApp\KPWebApp.DAL\obj\Debug\KPWebApp.DAL.dll
+F:\Education\KpWebApp\KPWebApp.DAL\obj\Debug\KPWebApp.DAL.pdb

@@ -33,7 +33,7 @@
                                 </div>
                             </td>
                             <td>
-                                @Html.ActionLink(item.PhotoHeader, "HeaderEdit", new { item.PhotoId })
+                                @Html.ActionLink(item.PhotoHeader, "HeaderEdit", new { PhotoId = item.PhotoId })
                             </td>
                             <td>
                                 @using (Html.BeginForm("Delete", "PersonalEdit"))

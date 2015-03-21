@@ -53,6 +53,10 @@
     <Compile Include="UtilityClass.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KPWebApp.DAL\KPWebApp.DAL.csproj">
+      <Project>{d5617d73-a59d-4388-b55b-7d6d93131ed2}</Project>
+      <Name>KPWebApp.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KPWebApp.Domain\KPWebApp.Domain.csproj">
       <Project>{3C376D35-9643-4C49-B0D6-0B446B8FD0B8}</Project>
       <Name>KPWebApp.Domain</Name>

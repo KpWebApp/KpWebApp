@@ -29,7 +29,7 @@
                     {
                         <tr>
                             <td>@item.PostId</td>
-                            <td>@Html.ActionLink(item.Header, "Edit", new { item.PostId })</td>
+                            <td>@Html.ActionLink(item.Header, "Edit", new { PostId = item.PostId })</td>
                             <td>@item.Time.ToString()</td>
                             <td>
                                 @using (Html.BeginForm("DeletePost", "PersonalEdit"))

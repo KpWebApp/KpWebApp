@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IEntity.cs" />
     <Compile Include="Abstract\IRegistrationProcessor.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Class1.cs" />

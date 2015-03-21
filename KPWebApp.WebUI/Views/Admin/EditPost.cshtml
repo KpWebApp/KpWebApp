@@ -68,7 +68,7 @@
                         <div class="form-group">
                             @Html.LabelFor(m => m.ImageData, new { @class = "col-sm-2 control-label" })
                             <div class="col-sm-10">
-                                <img width=250 height=250 src="@Url.Action("GetImage", "Post", new { Model.PostId })"/>
+                                <img width=250 height=250 src="@Url.Action("GetImage", "Post", new { PostId = Model.PostId })"/>
                             </div>
                         </div>
                     }

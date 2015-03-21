@@ -30,7 +30,7 @@
                             <td>@item.UserId</td>
                             @if (!item.IsRegistred)
                             {
-                                <td>@Html.ActionLink(item.FullName, "EditGraduate", new { item.UserId })</td>
+                                <td>@Html.ActionLink(item.FullName, "EditGraduate", new { UserId = item.UserId })</td>
                             }
                             else
                             {

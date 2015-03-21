@@ -10,7 +10,7 @@
             <hr />
             @if (Model.ImageData != null)
             {
-                <img class ="img-responsive img-border img-left" width="350" height="350" src="@Url.Action("GetImage", "Post", new{ Model.PostId })"/>
+                <img class ="img-responsive img-border img-left" width="350" height="350" src="@Url.Action("GetImage", "Post", new{ PostId = Model.PostId })"/>
             }
 
             @foreach (string chapter in TextParser.ParseString(Model.Text))
