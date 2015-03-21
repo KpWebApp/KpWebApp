@@ -66,3 +66,5 @@ F:\Education\KpWebApp\KPWebApp.WebUI\obj\Debug\KPWebApp.WebUI.dll
 F:\Education\KpWebApp\KPWebApp.WebUI\obj\Debug\KPWebApp.WebUI.pdb
 F:\Education\KpWebApp\KPWebApp.WebUI\bin\KPWebApp.DAL.dll
 F:\Education\KpWebApp\KPWebApp.WebUI\bin\KPWebApp.DAL.pdb
+F:\Education\KpWebApp\KPWebApp.WebUI\bin\WebDAV.dll
+F:\Education\KpWebApp\KPWebApp.WebUI\bin\WebDAV.xml
