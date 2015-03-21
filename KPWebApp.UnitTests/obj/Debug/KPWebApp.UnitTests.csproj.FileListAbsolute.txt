@@ -15,3 +15,22 @@ F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.d
 F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.pdb
 F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.dll
 F:\Education\3rd year\KPWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.csprojResolveAssemblyReference.cache
+F:\Education\KpWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.UnitTests.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.UnitTests.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.Domain.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.WebUI.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\Moq.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\Ninject.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\EntityFramework.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.DAL.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.dll
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.Domain.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.WebUI.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\Moq.xml
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\Ninject.xml
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\EntityFramework.xml
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.DAL.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\bin\Debug\KPWebApp.BLL.pdb
+F:\Education\KpWebApp\KPWebApp.UnitTests\obj\Debug\KPWebApp.UnitTests.pdb
