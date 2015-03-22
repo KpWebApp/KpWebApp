@@ -260,7 +260,7 @@ namespace KPWebApp.WebUI.Controllers
         {
             AdminsListOfItems<User> model = new AdminsListOfItems<User>
             {
-                Items = unitOfWork.UserRepository.Get().Skip((page - 1) * PageCapacity).Take(PageCapacity),
+                Items = unitOfWork.UserRepository.Get(u=>!u.IsTeacher && u.Role!=Role.Administrator).Skip((page - 1) * PageCapacity).Take(PageCapacity),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
