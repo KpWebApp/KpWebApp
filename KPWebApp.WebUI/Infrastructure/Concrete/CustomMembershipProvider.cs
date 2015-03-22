@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Concrete;
 
 namespace KPWebApp.WebUI.Infrastructure.Concrete
@@ -154,12 +155,14 @@ namespace KPWebApp.WebUI.Infrastructure.Concrete
             }
             else
             {
-                using (var context = new KpWebAppDb())
+                using (var uof = new UnitOfWork())
                 {
-                    var user = (from u in context.Users
-                        where string.Compare(u.Username, username, StringComparison.OrdinalIgnoreCase) == 0
-                              && string.Compare(u.Password, password, StringComparison.OrdinalIgnoreCase) == 0
-                        select u).FirstOrDefault();
+                    var user =
+                        uof.UserRepository.Get(
+                            u =>
+                                string.Compare(u.Username, username, StringComparison.OrdinalIgnoreCase) == 0 &&
+                                string.Compare(u.Password, password, StringComparison.OrdinalIgnoreCase) == 0)
+                            .FirstOrDefault();
                     return user != null;
                 }
             }

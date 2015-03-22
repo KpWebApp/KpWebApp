@@ -87,5 +87,11 @@ namespace KPWebApp.WebUI.Controllers
             return null;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 }

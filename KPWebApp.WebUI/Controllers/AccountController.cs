@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using KPWebApp.BLL;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Entities;
 using KPWebApp.WebUI.Infrastructure.Abstract;
@@ -16,12 +17,12 @@ namespace KPWebApp.WebUI.Controllers
     public class AccountController : Controller
     {
         private IAuthorizationProvider authorizationProvider;
-        private IRepository repository;
         private IRegistrationProcessor registration;
+        private IUnitOfWork unitOfWork;
 
-        public AccountController(IAuthorizationProvider auth, IRepository repo, IRegistrationProcessor register)
+        public AccountController(IAuthorizationProvider auth, IUnitOfWork uof, IRegistrationProcessor register)
         {
-            repository = repo;
+            unitOfWork = uof;
             authorizationProvider = auth;
             registration = register;
         }
@@ -73,11 +74,11 @@ namespace KPWebApp.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 User userEntry =
-                    repository.GetUserByFullName(string.Format("{0} {1} {2}", user.LastName, user.FirstName,
-                        user.MiddleName));
+                    unitOfWork.UserRepository.Get(u=>u.FullName==string.Format("{0} {1} {2}", user.LastName, user.FirstName,
+                        user.MiddleName)).FirstOrDefault();
                 if (userEntry != null)
                 {
-                    bool isRegistred = repository.Register(userEntry.UserId, user.Username, user.Email, Security.HashPassword(user.Password));
+                    bool isRegistred = Account.Register(userEntry.UserId, user.Username, user.Email, Security.HashPassword(user.Password), this.unitOfWork);
                     if (isRegistred)
                     {
                         registration.ProcessOrder(user.FirstName, user.MiddleName, user.LastName, user.Email, user.Username);
@@ -100,6 +101,12 @@ namespace KPWebApp.WebUI.Controllers
             ViewBag.Message = "Помилка заповнення форми.";
             return View();
 
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
 
     }

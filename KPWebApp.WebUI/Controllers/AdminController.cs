@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using KPWebApp.BLL;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Concrete;
 using KPWebApp.Domain.Entities;
@@ -18,11 +20,11 @@ namespace KPWebApp.WebUI.Controllers
     {
         public int PageCapacity { get; set; }
 
-        private IRepository repository;
+        private IUnitOfWork unitOfWork;
 
-        public AdminController(IRepository reposit)
+        public AdminController(IUnitOfWork uow)
         {
-            this.repository = reposit;
+            this.unitOfWork = uow;
             this.PageCapacity = 10;
         }
 
@@ -30,14 +32,12 @@ namespace KPWebApp.WebUI.Controllers
         {
             AdminsListOfItems<Post> model = new AdminsListOfItems<Post>
             {
-                Items = repository.GetPostsByRole(Role.Administrator).OrderByDescending(p => p.Time)
-                    .Skip((page - 1) * PageCapacity)
-                    .Take(PageCapacity),
+                Items = unitOfWork.PostRepository.Get(p => p.User.Role == Role.Administrator, q => q.OrderByDescending(p => p.Time)).Skip((page - 1) * PageCapacity).Take(PageCapacity),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageCapacity,
-                    TotalItems = repository.PostsCollection.Count(p => p.User.Role == Role.Administrator)
+                    TotalItems = unitOfWork.PostRepository.Get(p => p.User.Role == Role.Administrator).Count()
                 },
             };
             return View(model);
@@ -45,7 +45,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public ViewResult EditPost(int postId)
         {
-            Post post = repository.GetPostById(postId);
+            Post post = unitOfWork.PostRepository.GetById(postId);
             return View(post);
         }
 
@@ -60,14 +60,10 @@ namespace KPWebApp.WebUI.Controllers
                     post.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(post.ImageData, 0, image.ContentLength);
                 }
-
-                using (var ctx = new KpWebAppDb())
-                {
-                    User user = (from u in ctx.Users
-                                 where u.Username == System.Web.HttpContext.Current.User.Identity.Name
-                                 select u).FirstOrDefault();
-                    repository.SavePost(post, user);
-                }
+                User user =
+                        unitOfWork.UserRepository.Get(
+                            u => u.Username == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault();
+                Admin.SavePost(post, user, this.unitOfWork);
 
                 //TempData["message"] = string.Format("Post with ID: {0} has been saved by {1}", post.PostId, System.Web.HttpContext.Current.User.Identity.Name);
                 return RedirectToAction("ListOfPosts");
@@ -86,7 +82,8 @@ namespace KPWebApp.WebUI.Controllers
         [HttpPost]
         public ActionResult DeletePost(int postId)
         {
-            Post deletedPost = repository.DeletePost(postId);
+            unitOfWork.PostRepository.Delete(postId);
+            unitOfWork.Save();
             //if (deletedPost != null)
             //{
             //    TempData["message"] =
@@ -103,7 +100,7 @@ namespace KPWebApp.WebUI.Controllers
         public ViewResult EditGraduate(int userId)
         {
             User graduate = new User();
-            graduate = repository.GetUserById(userId);
+            graduate = unitOfWork.UserRepository.GetById(userId);
             NewGraduate entry = new NewGraduate();
             entry.UserId = graduate.UserId;
             string[] names = graduate.FullName.Split(' ');
@@ -133,7 +130,7 @@ namespace KPWebApp.WebUI.Controllers
                     fullName += (" " + graduate.MiddleName);
                 }
 
-                repository.AddGraduate(graduate.UserId, fullName, graduate.EntarnceYear, graduate.GraduationYear, graduate.Speciality);
+                Admin.AddGraduate(graduate.UserId, fullName, graduate.EntarnceYear, graduate.GraduationYear, graduate.Speciality, unitOfWork);
                 return RedirectToAction("ListOfAllUsers");
             }
             return View("EditGraduate", graduate);
@@ -146,13 +143,13 @@ namespace KPWebApp.WebUI.Controllers
 
         public ViewResult ListOfTeachers()
         {
-            return View(repository.GetAllTeachers());
+            return View(unitOfWork.UserRepository.Get(u => u.IsTeacher));
         }
 
         public ViewResult EditTeacher(int userId)
         {
             User teacher = new User();
-            teacher = repository.GetUserById(userId);
+            teacher = unitOfWork.UserRepository.GetById(userId);
             TeacherByAdmin entry = new TeacherByAdmin();
             entry.UserId = teacher.UserId;
             entry.Chair = teacher.UserInfo.Teacher.Chiar;
@@ -220,7 +217,8 @@ namespace KPWebApp.WebUI.Controllers
 
                     courses.AddRange(addedCourses);
                 }
-                repository.AddTeacher(teacher.UserId, fullName, teacher.Chair, teacher.Degree, courses, teacher.WorksFrom, teacher.WorkedTill, teacher.ImageData, teacher.ImageMimeType);
+                Admin.AddTeacher(teacher.UserId, fullName, teacher.Chair, teacher.Degree, courses,
+                    teacher.WorksFrom, teacher.WorkedTill, teacher.ImageData, teacher.ImageMimeType, unitOfWork);
                 return RedirectToAction("ListOfTeachers");
             }
             return View("EditTeacher", teacher);
@@ -228,7 +226,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetImageForTeacher(int userId)
         {
-            User user = repository.UserCollection.FirstOrDefault(u => u.UserId == userId);
+            User user = unitOfWork.UserRepository.GetById(userId);
             if (user != null)
             {
                 Photo photo = user.UserInfo.Photos.FirstOrDefault();
@@ -247,38 +245,27 @@ namespace KPWebApp.WebUI.Controllers
         [HttpPost]
         public ActionResult DeleteTeacher(int userId)
         {
-            User deletedUser = repository.DeleteTeacher(userId);
-            if (deletedUser != null)
-            {
-                //TempData["message"] =
-                //        string.Format("Post with ID: {0} and FULL NAME: {1}, has been deleted", deletedUser.UserId, deletedUser.FullName);
-            }
+            unitOfWork.UserRepository.Delete(userId);
+            unitOfWork.Save();
             return RedirectToAction("ListOfTeachers");
         }
 
         [HttpPost]
         public ActionResult DeleteGraduate(int userId)
         {
-            User deletedUser = repository.DeleteTeacher(userId);
-            if (deletedUser != null)
-            {
-                //TempData["message"] =
-                //        string.Format("Post with ID: {0} and FULL NAME: {1}, has been deleted", deletedUser.UserId, deletedUser.FullName);
-            }
+            unitOfWork.UserRepository.Delete(userId);
             return RedirectToAction("ListOfAllUsers");
         }
         public ViewResult ListOfAllUsers(int page = 1)
         {
             AdminsListOfItems<User> model = new AdminsListOfItems<User>
             {
-                Items = repository.GetAllGraduates()
-                    .Skip((page - 1) * PageCapacity)
-                    .Take(PageCapacity),
+                Items = unitOfWork.UserRepository.Get().Skip((page - 1) * PageCapacity).Take(PageCapacity),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageCapacity,
-                    TotalItems = repository.UserCollection.Count(p => p.Role != Role.Administrator && !p.IsTeacher)
+                    TotalItems = unitOfWork.UserRepository.Get(p => p.Role != Role.Administrator && !p.IsTeacher).Count()
                 },
             };
             return View(model);
@@ -295,8 +282,8 @@ namespace KPWebApp.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (repository.ChangePassword(System.Web.HttpContext.Current.User.Identity.Name, Security.HashPassword(model.OldPassword),
-                    Security.HashPassword(model.NewPassword)))
+                if (Admin.ChangePassword(System.Web.HttpContext.Current.User.Identity.Name, Security.HashPassword(model.OldPassword),
+                    Security.HashPassword(model.NewPassword), unitOfWork))
                 {
                     return RedirectToAction("Index");
                 }
@@ -304,6 +291,12 @@ namespace KPWebApp.WebUI.Controllers
             }
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
 
     }
