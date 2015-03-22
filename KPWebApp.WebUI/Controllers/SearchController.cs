@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Entities;
 using KPWebApp.WebUI.Models;
@@ -11,11 +12,11 @@ namespace KPWebApp.WebUI.Controllers
 {
     public class SearchController : Controller
     {
-        private IRepository repository;
+        private IUnitOfWork unitOfWork;
 
-        public SearchController(IRepository reposit)
+        public SearchController(IUnitOfWork unit)
         {
-            this.repository = reposit;
+            this.unitOfWork = unit;
         }
 
         public ActionResult Search()
@@ -35,12 +36,12 @@ namespace KPWebApp.WebUI.Controllers
                 List<User> usersFromDb = new List<User>();
                 if (year == "Викладачі")
                 {
-                    usersFromDb = repository.GetAllTeachers().ToList();
+                    usersFromDb = unitOfWork.UserRepository.Get(u=>u.IsTeacher).ToList();
                 }
                 else
                 {
                     int yearId = Convert.ToInt32(year);
-                    usersFromDb = repository.GetByGraduateYear(yearId).ToList();
+                    usersFromDb = unitOfWork.UserRepository.Get(u=>u.UserInfo.GraduateInfo.GraduationYear == yearId).ToList();
                 }
                 
                 List<FoundUser> users = new List<FoundUser>();
@@ -60,7 +61,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public PartialViewResult YearsOfGraduation()
         {
-            return PartialView(repository.GetYearsOfGraduation().ToList());
+            return PartialView(BLL.Search.YearsOfGraduation(unitOfWork));
         }
 
     }
