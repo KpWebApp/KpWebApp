@@ -15,7 +15,7 @@ namespace KPWebApp.BLL
             using (var unitOfwork = unit)
             {
                 var years =
-                    unit.UserRepository.Get(u => u.UserInfo != null && u.UserInfo.GraduateInfo.GraduationYear != 0)
+                    unitOfwork.UserRepository.Get(u => u.UserInfo != null && u.UserInfo.GraduateInfo.GraduationYear != 0)
                         .Select(user => user.UserInfo.GraduateInfo.GraduationYear.ToString())
                         .Distinct()
                         .OrderBy(x => x)
