@@ -49,6 +49,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Admin.cs" />
     <Compile Include="PersonalCategories.cs" />
+    <Compile Include="PersonalEdit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />
     <Compile Include="TextParser.cs" />

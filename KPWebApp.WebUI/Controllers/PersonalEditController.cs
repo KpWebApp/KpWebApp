@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using KPWebApp.BLL;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Concrete;
 using KPWebApp.Domain.Entities;
@@ -15,12 +16,12 @@ namespace KPWebApp.WebUI.Controllers
     [Authorize(Roles = "User")]
     public class PersonalEditController : Controller
     {
-        private IRepository repository;
+        private IUnitOfWork unitOfWork;
         private string username;
 
-        public PersonalEditController(IRepository repo)
+        public PersonalEditController(IUnitOfWork unit)
         {
-            this.repository = repo;
+            this.unitOfWork = unit;
             this.username = System.Web.HttpContext.Current.User.Identity.Name;
         }
 
@@ -32,9 +33,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public ViewResult Photos()
         {
-            var user = (from u in repository.UserCollection
-                        where u.Username == username
-                        select u).FirstOrDefault();
+            var user = unitOfWork.UserRepository.Get(u => u.Username == username).FirstOrDefault();
             if (user != null)
             {
                 var photos = user.UserInfo.Photos;
@@ -48,7 +47,7 @@ namespace KPWebApp.WebUI.Controllers
         public ViewResult HeaderEdit(int photoId)
         {
             ViewBag.User = username;
-            return View(repository.GetPhotoById(photoId));
+            return View(unitOfWork.PhotoRepository.GetById(photoId));
         }
 
         [HttpPost]
@@ -58,7 +57,7 @@ namespace KPWebApp.WebUI.Controllers
             {
                 if (!string.IsNullOrEmpty(photo.PhotoHeader))
                 {
-                    repository.SavePhoto(photo, username);
+                    BLL.PersonalEdit.SavePhoto(photo, username, this.unitOfWork);
                 }
                 //TempData["message"] = string.Format("Photo header changed");
                 ViewBag.User = username;
@@ -70,7 +69,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetImage(int imageId)
         {
-            User user = repository.UserCollection.FirstOrDefault(u => u.Username == username);
+            User user = unitOfWork.UserRepository.Get(u => u.Username == username).FirstOrDefault();
             if (user != null)
             {
                 Photo photo = user.UserInfo.Photos.FirstOrDefault(p => p.PhotoId == imageId);
@@ -89,12 +88,7 @@ namespace KPWebApp.WebUI.Controllers
         [HttpPost]
         public ActionResult Delete(int photoId)
         {
-            Photo deletetedPhoto = repository.DeletePhoto(photoId);
-            if (deletetedPhoto != null)
-            {
-                //TempData["message"] =
-                //        string.Format("Photo with header: '{0}' has been deleted", deletetedPhoto.PhotoHeader);
-            }
+            unitOfWork.PhotoRepository.Delete(photoId);
             ViewBag.User = username;
             return RedirectToAction("Photos");
         }
@@ -115,7 +109,7 @@ namespace KPWebApp.WebUI.Controllers
                     photo.ImageMimeType = image.ContentType;
                     photo.ImageData = new byte[image.ContentLength];
                     image.InputStream.Read(photo.ImageData, 0, image.ContentLength);
-                    repository.SavePhoto(photo, username);
+                    BLL.PersonalEdit.SavePhoto(photo, username, this.unitOfWork);
                     ViewBag.User = username;
                     return RedirectToAction("Photos");
                 }
@@ -127,14 +121,19 @@ namespace KPWebApp.WebUI.Controllers
         public ViewResult Posts()
         {
             ViewBag.User = username;
-            return View(repository.GetUserByName(username).Posts);
+            var user = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+            if (user != null)
+            {
+                return View(user.Posts);
+            }
+            return View();
         }
-
+        
         public ViewResult Edit(int postId)
         {
-            if (username == repository.GetPostById(postId).User.Username)
+            if (username == unitOfWork.PostRepository.GetById(postId).User.Username)
             {
-                Post post = repository.GetPostById(postId);
+                Post post = unitOfWork.PostRepository.GetById(postId);
                 return View(post);
             }
             else
@@ -156,8 +155,8 @@ namespace KPWebApp.WebUI.Controllers
                     image.InputStream.Read(post.ImageData, 0, image.ContentLength);
                 }
 
-                User user = repository.GetUserByName(username);
-                repository.SavePost(post, user);
+                User user = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+                PersonalEdit.SavePost(post, username, this.unitOfWork);
 
                 TempData["message"] = string.Format("Post with ID: {0} has been saved by {1}", post.PostId, System.Web.HttpContext.Current.User.Identity.Name);
                 return RedirectToAction("Posts");
@@ -176,20 +175,15 @@ namespace KPWebApp.WebUI.Controllers
         [HttpPost]
         public ActionResult DeletePost(int postId)
         {
-            Post deletedPost = repository.DeletePost(postId);
-            if (deletedPost != null)
-            {
-                //TempData["message"] =
-                //        string.Format("Post with ID: {0} and HEADER: {1}, has been deleted", deletedPost.PostId, deletedPost.Header);
-            }
+            unitOfWork.PostRepository.Delete(postId);
             return RedirectToAction("Posts");
         }
 
         public ViewResult EditPersonalData()
         {
             PersonalData data = new PersonalData();
-            User currentUser = repository.GetUserByName(username);
-            if (!string.IsNullOrEmpty(currentUser.FullName))
+            User currentUser = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+            if (currentUser!=null && !string.IsNullOrEmpty(currentUser.FullName))
             {
                 string[] names = currentUser.FullName.Split(new char[] { ' ' });
                 data.LastName = names[0];
@@ -212,13 +206,16 @@ namespace KPWebApp.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = repository.GetUserByName(username);
-                user.FullName = data.LastName + " " + data.FirstName + " " + data.MiddleName;
-                user.UserInfo.Status = data.Status;
-                user.UserInfo.BIO = data.Biography;
-                user.UserInfo.Gender = data.Gender;
-                //user.UserInfo.BirthDate = data.BirthDate;
-                repository.SaveUsersPersonalData(user);
+                User user = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+                if (user != null)
+                {
+                    user.FullName = data.LastName + " " + data.FirstName + " " + data.MiddleName;
+                    user.UserInfo.Status = data.Status;
+                    user.UserInfo.BIO = data.Biography;
+                    user.UserInfo.Gender = data.Gender;
+                    //user.UserInfo.BirthDate = data.BirthDate;
+                }
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             else
@@ -230,9 +227,15 @@ namespace KPWebApp.WebUI.Controllers
 
         public ViewResult EditContactInfo()
         {
-            ContactInfo info = repository.GetUserByName(username).UserInfo.ContactInfo;
             ViewBag.User = username;
-            return View(info);
+            var user = unitOfWork.UserRepository.Get(u => u.Username == username).FirstOrDefault();
+            if (user != null)
+            {
+                ContactInfo info = user.UserInfo.ContactInfo;
+                return View(info);
+            }
+            return View();
+
         }
 
         [HttpPost]
@@ -240,7 +243,7 @@ namespace KPWebApp.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.SaveUsersContactInfo(info, username);
+                BLL.PersonalEdit.SaveContactData(info, username, this.unitOfWork);
                 return RedirectToAction("Index");
             }
             else
@@ -260,8 +263,8 @@ namespace KPWebApp.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (repository.ChangePassword(System.Web.HttpContext.Current.User.Identity.Name, Security.HashPassword(model.OldPassword),
-                    Security.HashPassword(model.NewPassword)))
+                if (Admin.ChangePassword(System.Web.HttpContext.Current.User.Identity.Name, Security.HashPassword(model.OldPassword),
+                    Security.HashPassword(model.NewPassword), this.unitOfWork))
                 {
                     return RedirectToAction("Index");
                 }
@@ -269,6 +272,12 @@ namespace KPWebApp.WebUI.Controllers
             }
 
             return View();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            this.unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

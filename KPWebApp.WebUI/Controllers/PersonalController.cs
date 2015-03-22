@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Entities;
 using KPWebApp.WebUI.Models;
@@ -11,39 +12,41 @@ namespace KPWebApp.WebUI.Controllers
 {
     public class PersonalController : Controller
     {
-        private IRepository repository;
+        private IUnitOfWork unitOfWork;
 
-        public PersonalController(IRepository repo)
+        public PersonalController(IUnitOfWork unit)
         {
-            this.repository = repo;
+            this.unitOfWork = unit;
         }
 
         public ViewResult Profile(string username)
         {
             UserProfileViewModel model = new UserProfileViewModel();
             model.Username =  username;
-            if (!string.IsNullOrEmpty(repository.GetUserByName(username).FullName))
+            var user = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+            if (user != null && !string.IsNullOrEmpty(user.FullName))
             {
-                string[] names = repository.GetUserByName(username).FullName.Split(new char[] {' '});
+                string[] names = user.FullName.Split(new char[] {' '});
                 if (names.Length == 3)
                 {
                     model.FullName = names[1] + " " + names[0];
                 }
                 else
                 {
-                    model.FullName = repository.GetUserByName(username).FullName;
+                    model.FullName = user.FullName;
                 }
+                if (user.UserInfo != null)
+                {
+                    model.Photos = user.UserInfo.Photos ?? null;
+                    model.Status = user.UserInfo.Status ?? null;
+                }
+                model.Posts = user.Posts ?? null;
             }
             else
             {
                 model.FullName = username;
             }
-            if (repository.GetUserByName(username).UserInfo != null)
-            {
-                model.Photos = repository.GetUserByName(username).UserInfo.Photos ?? null;
-                model.Status = repository.GetUserByName(username).UserInfo.Status ?? null;
-            }
-            model.Posts = repository.GetUserByName(username).Posts ?? null;
+          
             ViewBag.User = username;
             return View(model);
         }
@@ -52,17 +55,21 @@ namespace KPWebApp.WebUI.Controllers
         {
             UserBiographyViewModel model = new UserBiographyViewModel();
             model.Username = username;
-            string[] names = repository.GetUserByName(username).FullName.Split(new char[] { ' ' });
-            if (names.Length == 3)
+            var user = unitOfWork.UserRepository.Get(u=>u.Username==username).FirstOrDefault();
+            if (user != null)
             {
-                model.FullName = names[1] + " " + names[0];
+                string[] names = user.FullName.Split(new char[] { ' ' });
+                if (names.Length == 3)
+                {
+                    model.FullName = names[1] + " " + names[0];
+                }
+                else
+                {
+                    model.FullName = user.FullName;
+                }
+                model.Bio = user.UserInfo.BIO;
+                model.Photos = user.UserInfo.Photos;
             }
-            else
-            {
-                model.FullName = repository.GetUserByName(username).FullName;
-            }
-            model.Bio = repository.GetUserByName(username).UserInfo.BIO;
-            model.Photos = repository.GetUserByName(username).UserInfo.Photos;
             ViewBag.User = username;
             return View(model);
         }
@@ -71,27 +78,31 @@ namespace KPWebApp.WebUI.Controllers
         {
             UserContactViewModel model = new UserContactViewModel();
             model.Username = username;
-            string[] names = repository.GetUserByName(username).FullName.Split(new char[] { ' ' });
-            if (names.Length == 3)
+            var user = unitOfWork.UserRepository.Get(u => u.Username == username).FirstOrDefault();
+            if (user != null)
             {
-                model.FullName = names[1] + " " + names[0];
-            }
-            else
-            {
-                model.FullName = repository.GetUserByName(username).FullName;
-            }
-            model.Email = repository.GetUserByName(username).Email;
-            model.Facebook = repository.GetUserByName(username).UserInfo.ContactInfo.Facebook;
-            model.Skype = repository.GetUserByName(username).UserInfo.ContactInfo.Skype;
-            model.HomeNumber = repository.GetUserByName(username).UserInfo.ContactInfo.HomeNumber;
-            model.MobileNumber = repository.GetUserByName(username).UserInfo.ContactInfo.MobNumber;
+                string[] names = user.FullName.Split(new char[] { ' ' });
+                if (names.Length == 3)
+                {
+                    model.FullName = names[1] + " " + names[0];
+                }
+                else
+                {
+                    model.FullName = user.FullName;
+                }
+                model.Email = user.Email;
+                model.Facebook = user.UserInfo.ContactInfo.Facebook;
+                model.Skype = user.UserInfo.ContactInfo.Skype;
+                model.HomeNumber = user.UserInfo.ContactInfo.HomeNumber;
+                model.MobileNumber = user.UserInfo.ContactInfo.MobNumber;
+            }        
             ViewBag.User = username;
             return View(model);
         }
 
         public FileContentResult GetImage(int imageId, string username)
         {
-            User user = repository.UserCollection.FirstOrDefault(u => u.Username == username);
+            User user = unitOfWork.UserRepository.Get(u => u.Username == username).FirstOrDefault();
             if (user != null)
             {
                 Photo photo = user.UserInfo.Photos.FirstOrDefault(p => p.PhotoId == imageId);
