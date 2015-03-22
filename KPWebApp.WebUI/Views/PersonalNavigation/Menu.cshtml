@@ -47,7 +47,7 @@ else
     </li>
     if (HttpContext.Current.User.Identity.IsAuthenticated)
     {
-        if (@ViewBag.Username != HttpContext.Current.User.Identity.Name)
+        if (@ViewBag.Username != HttpContext.Current.User.Identity.Name && HttpContext.Current.User.IsInRole("User"))
         {
                     <li>
             @Html.ActionLink("Моя сторінка", "Profile", "Personal", new { username = HttpContext.Current.User.Identity.Name }, null)
