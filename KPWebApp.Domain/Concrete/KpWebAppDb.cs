@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,8 @@ namespace KPWebApp.Domain.Concrete
         public DbSet<Course> Courses { get; set; }
 
         public KpWebAppDb()
-            : base(@"workstation id=KpWebApp.mssql.somee.com;packet size=4096;user id=marki27_SQLLogin_1;pwd=fjegbpjpyl;data source=KpWebApp.mssql.somee.com;persist security info=False;initial catalog=KpWebApp")
+            : base(Domain.Configuration.ConnectionString)
         {
-            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

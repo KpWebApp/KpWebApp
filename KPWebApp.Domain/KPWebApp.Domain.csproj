@@ -55,6 +55,7 @@
     <Compile Include="Concrete\EmailSettings.cs" />
     <Compile Include="Concrete\KpWebAppDb.cs" />
     <Compile Include="Concrete\PostRepository.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Entities\ContactInfo.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\GraduateInfo.cs" />
