@@ -60,12 +60,12 @@ namespace KPWebApp.BLL
                 }
                 else
                 {
-                    unitOfWork.UserRepository.Update(u);
-                    //u.UserInfo.BirthDate = new DateTime(1,1,1,0,0,0);
-                    //u.FullName = fullName;
-                    //u.UserInfo.GraduateInfo.EntranceYear = enranceYear;
-                    //u.UserInfo.GraduateInfo.GraduationYear = graduationYear;
-                    //u.UserInfo.GraduateInfo.Speciality = speciality;
+                    //u.UserInfo.BirthDate = new DateTime(1, 1, 1, 0, 0, 0);
+                    u = unitOfWork.UserRepository.GetById(id);
+                    u.FullName = fullName;
+                    u.UserInfo.GraduateInfo.EntranceYear = enranceYear;
+                    u.UserInfo.GraduateInfo.GraduationYear = graduationYear;
+                    u.UserInfo.GraduateInfo.Speciality = speciality;
                 }
 
                 unitOfWork.Save();
