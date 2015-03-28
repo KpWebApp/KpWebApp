@@ -21,12 +21,12 @@ namespace KPWebApp.Domain.Concrete
 
         public DbSet<Course> Courses { get; set; }
 
-        //public KpWebAppDb()
-        //    //: base("dbConn")
+        public KpWebAppDb()
+            //: base("dbConn")
         //    //: base(@"workstation id=KpWebApp.mssql.somee.com;packet size=4096;user id=marki27_SQLLogin_1;pwd=fjegbpjpyl;data source=KpWebApp.mssql.somee.com;persist security info=False;initial catalog=KpWebApp")
-        //    : base(@"Server=4b855939-d8aa-47d4-9e37-a46900c5639c.sqlserver.sequelizer.com;Database=db4b855939d8aa47d49e37a46900c5639c;User ID=nmlakpbvyuykiczb;Password=6XuYxLCEiowbNvVNgmqPmTgzwYvUFq2abAnYQnd485ZkockKasrhXoZmQ3AGpQ72;")       
-        //{
-        //}
+          : base(@"Server=4b855939-d8aa-47d4-9e37-a46900c5639c.sqlserver.sequelizer.com;Database=db4b855939d8aa47d49e37a46900c5639c;User ID=nmlakpbvyuykiczb;Password=6XuYxLCEiowbNvVNgmqPmTgzwYvUFq2abAnYQnd485ZkockKasrhXoZmQ3AGpQ72;")       
+        {
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -56,7 +56,6 @@ namespace KPWebApp.Domain.Concrete
                        cs.MapRightKey("CourseId");
                        cs.ToTable("UserCourse");
                    });
-
 
         }
     }
