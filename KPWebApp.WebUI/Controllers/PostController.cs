@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using KPWebApp.BLL;
 using KPWebApp.DAL;
 using KPWebApp.Domain.Abstract;
 using KPWebApp.Domain.Concrete;
@@ -13,11 +14,11 @@ namespace KPWebApp.WebUI.Controllers
 {
     public class PostController : Controller
     {
-        private IUnitOfWork unitOfWork;
+        private IManagePosts postManager;
         public int PageCapacity { get; set; }
-        public PostController(IUnitOfWork unitOfWork)
+        public PostController(IManagePosts manager)
         {
-            this.unitOfWork = unitOfWork;
+            this.postManager = manager;
             this.PageCapacity = 3;
         }
 
@@ -25,12 +26,12 @@ namespace KPWebApp.WebUI.Controllers
         {
             PostsListViewModel model = new PostsListViewModel()
             {
-                Posts = unitOfWork.PostRepository.Get(p => (category == null || p.Category.ToString() == category) && (p.User.Role == Role.Administrator), q=>q.OrderByDescending(p=>p.Time)).Skip((page - 1) * PageCapacity).Take(PageCapacity),
+                Posts = postManager.PostsByAdmin(category, PageCapacity, page),
                 PagingInfo = new PagingInfo()
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageCapacity,
-                    TotalItems = category == null ? unitOfWork.PostRepository.Get().Count() : unitOfWork.PostRepository.Get().Count(e => e.Category.ToString() == category && e.User.Role==Role.Administrator)
+                    TotalItems = category == null ? postManager.GetCountOfPostsByAdmin() : postManager.GetCountOfPostsByAdmin(category)
                 },
                 CurrentCategory = category
 
@@ -40,20 +41,12 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetImage(int postId)
         {
-            Post post = unitOfWork.PostRepository.Get(p => p.PostId == postId).FirstOrDefault();
-            if (post != null)
-            {
-                return File(post.ImageData, post.ImageMimeType);
-            }
-            else
-            {
-                return null;
-            }
+            return postManager.GetPhotoForPost(postId);
         }
 
         public ViewResult TeachersInfoPage(int userId)
         {
-            User teacher = unitOfWork.UserRepository.GetById(userId);
+            User teacher = postManager.GetTeacherById(userId);
             TeacherInfoPage modelTeacher = new TeacherInfoPage
             {
                 UserId = teacher.UserId,
@@ -71,26 +64,7 @@ namespace KPWebApp.WebUI.Controllers
 
         public FileContentResult GetTeachersProfileImage(int userId)
         {
-            User user = unitOfWork.UserRepository.Get(u => u.UserId == userId).FirstOrDefault();
-            if (user != null)
-            {
-                Photo photo = user.UserInfo.Photos.FirstOrDefault();
-                if (photo != null)
-                {
-                    return File(photo.ImageData, photo.ImageMimeType);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            return null;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            unitOfWork.Dispose();
-            base.Dispose(disposing);
+            return postManager.GetTeachersProfileImage(userId);
         }
 
     }

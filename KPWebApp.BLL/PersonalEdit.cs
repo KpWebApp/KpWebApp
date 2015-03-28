@@ -25,7 +25,11 @@ namespace KPWebApp.BLL
                 }
                 else
                 {
-                    unitOfWork.PhotoRepository.Update(photo);
+                    var entry = unitOfWork.PhotoRepository.GetById(photo.PhotoId);
+                    if (entry != null)
+                    {
+                        entry.PhotoHeader = photo.PhotoHeader;
+                    }
                 }
                 unitOfWork.Save();
             }

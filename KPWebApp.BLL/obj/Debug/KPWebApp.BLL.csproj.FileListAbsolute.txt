@@ -24,3 +24,5 @@ F:\Education\KpWebApp\KPWebApp.BLL\obj\Debug\KPWebApp.BLL.dll
 F:\Education\KpWebApp\KPWebApp.BLL\obj\Debug\KPWebApp.BLL.pdb
 F:\Education\KpWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.DAL.dll
 F:\Education\KpWebApp\KPWebApp.BLL\bin\Debug\KPWebApp.DAL.pdb
+F:\Education\KpWebApp\KPWebApp.BLL\bin\Debug\System.Web.Mvc.dll
+F:\Education\KpWebApp\KPWebApp.BLL\bin\Debug\System.Web.Mvc.xml

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using KPWebApp.BLL;
 using KPWebApp.DAL;
 using KPWebApp.Domain.Concrete;
 using KPWebApp.Domain.Entities;
@@ -36,6 +37,7 @@ namespace KPWebApp.WebUI.Infrastructure
             ninjectKernel.Bind<RoleProvider>().To<CustomRoleProvider>();
             ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
             ninjectKernel.Bind(typeof (IRepository<>)).To(typeof (Repository<>));
+            ninjectKernel.Bind<IManagePosts>().To<ManagePosts>();
             EmailSettings emailSettings = new EmailSettings
             {
                 MailFromAddress = "kp@kpwebapp.com",
