@@ -22,9 +22,9 @@ namespace KPWebApp.Domain.Concrete
         public DbSet<Course> Courses { get; set; }
 
         public KpWebAppDb()
-            //: base("dbConn")
-        //    //: base(@"workstation id=KpWebApp.mssql.somee.com;packet size=4096;user id=marki27_SQLLogin_1;pwd=fjegbpjpyl;data source=KpWebApp.mssql.somee.com;persist security info=False;initial catalog=KpWebApp")
-          : base()       
+            : base("KpWebAppDb")
+            //: base(@"workstation id=KpWebApp.mssql.somee.com;packet size=4096;user id=marki27_SQLLogin_1;pwd=fjegbpjpyl;data source=KpWebApp.mssql.somee.com;persist security info=False;initial catalog=KpWebApp")
+          //: base()       
         {
         }
 
