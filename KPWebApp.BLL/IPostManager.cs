@@ -11,7 +11,7 @@ using KPWebApp.Domain.Entities;
 
 namespace KPWebApp.BLL
 {
-    public interface IManagePosts
+    public interface IPostManager: IDisposable
     {
         List<Post> PostsByAdmin(string category, int pageCapacity, int page);
         int GetCountOfPosts();

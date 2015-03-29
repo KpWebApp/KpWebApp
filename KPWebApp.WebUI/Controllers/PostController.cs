@@ -14,9 +14,9 @@ namespace KPWebApp.WebUI.Controllers
 {
     public class PostController : Controller
     {
-        private IManagePosts postManager;
+        private IPostManager postManager;
         public int PageCapacity { get; set; }
-        public PostController(IManagePosts manager)
+        public PostController(IPostManager manager)
         {
             this.postManager = manager;
             this.PageCapacity = 3;
@@ -67,5 +67,17 @@ namespace KPWebApp.WebUI.Controllers
             return postManager.GetTeachersProfileImage(userId);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.postManager != null)
+                {
+                    postManager.Dispose();
+                    this.postManager = null;
+                }
+            }
+            base.Dispose(disposing);
+        }
     }
 }

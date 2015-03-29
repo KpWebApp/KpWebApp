@@ -16,6 +16,12 @@ namespace KPWebApp.DAL
         internal DbSet<T> dbSet;
         private bool disposed = false;
 
+        public Repository()
+        {
+            this.context = new KpWebAppDb();
+            this.dbSet = this.context.Set<T>();
+        }
+
         public Repository(KpWebAppDb ctx)
         {
             this.context = ctx;

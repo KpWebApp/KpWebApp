@@ -37,7 +37,7 @@ namespace KPWebApp.WebUI.Infrastructure
             ninjectKernel.Bind<RoleProvider>().To<CustomRoleProvider>();
             ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
             ninjectKernel.Bind(typeof (IRepository<>)).To(typeof (Repository<>));
-            ninjectKernel.Bind<IManagePosts>().To<ManagePosts>();
+            ninjectKernel.Bind<IPostManager>().To<PostManager>();
             EmailSettings emailSettings = new EmailSettings
             {
                 MailFromAddress = "kp@kpwebapp.com",

@@ -63,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KPWebApp.BLL\KPWebApp.BLL.csproj">
+      <Project>{fc61696a-cce0-4e52-bb3c-191fb18ce528}</Project>
+      <Name>KPWebApp.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KPWebApp.DAL\KPWebApp.DAL.csproj">
       <Project>{D5617D73-A59D-4388-B55B-7D6D93131ED2}</Project>
       <Name>KPWebApp.DAL</Name>
